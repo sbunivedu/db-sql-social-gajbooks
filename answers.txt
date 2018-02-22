@@ -1,0 +1,28 @@
+1. Students who are friends with someone named Gabriel
+
+select h1.name from Friend, Highschooler h1, Highschooler h2 where h1.ID = Friend.ID1 and Friend.ID2 = h2.ID and h2.name = "Gabriel";
+
+2. Students who do not appear in the Likes table
+
+select Highschooler.name, Highschooler.grade from Highschooler where Highschooler.ID not in (select Highschooler.ID from Highschooler, Likes where Highschooler.ID = Likes.ID1 or Highschooler.ID = Likes.ID2); 
+
+3. Name and grade of all students liked by more than one other student
+
+select distinct h1.name, h1.grade from Highschooler h1, Likes l1, Likes l2 where l1.ID2 = h1.ID and l2.ID2 = h1.ID and l1.ID1 <> l2.ID1;
+
+4.
+
+select h1.name, h1.grade, h2.name, h2.grade from Highschooler h1, Highschooler h2, Likes l1 where h1.ID = l1.ID1 and h2.ID = l1.ID2 and (h1.grade-2)>=h2.grade;
+
+8.
+
+select (select count(*) from Friend)/count(*) from Highschooler;
+
+5.
+
+select Highschooler.name, Highschooler.grade from Highschooler where Highschooler.ID not in (select h1.ID from Highschooler h1, Highschooler h2, Friend where h1.grade <> h2.grade and h1.ID = Friend.ID1 and h2.ID = Friend.ID2) order by grade, name;
+
+
+
+
+
